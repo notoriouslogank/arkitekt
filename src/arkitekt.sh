@@ -7,6 +7,7 @@ YUM_CMD=$(which yum)
 APT_CMD=$(which apt)
 PACMAN_CMD=$(which pacman)
 
+function pkg_check_and_install {
 # Determine which package manage is being used and
 # install necessary packages
 if [[ ! -z $APT_CMD ]]; then
@@ -21,3 +22,6 @@ else
     echo "ERROR: Can't install package(s). Verify correct package manager."
     exit 1;
 fi
+}
+
+pkg_check_and_install
