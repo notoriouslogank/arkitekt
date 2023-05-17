@@ -1,0 +1,4 @@
+GENERICPKG="curl wget git python3 pip nmon htop toilet lolcat ranger"
+APTPKG=""
+PACMANPKG=""
+
