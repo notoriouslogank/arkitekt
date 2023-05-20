@@ -7,9 +7,22 @@ YUM_CMD=$(which yum)
 APT_CMD=$(which apt)
 PACMAN_CMD=$(which pacman)
 
+function backup_dotfiles {
+    # Create backups of all dotfiles to be edited
+    
+    # TODO: Change these cp to mv
+    cp /etc/motd /src/backups/motd.bak
+    cp /etc/ssh/banner /src/backups/banner.bak
+    cp /etc/ssh/ssh_config /src/backups/ssh_config.bak
+    cp /etc/ssh/sshd_config /src/backups/sshd_config.bak
+    cp ~/.zshrc /src/backups/.zshrc.bak
+    cp ~/.bashrc /src/backups/.bashrc.bak
+    cp ~/.config/neofetch /src/backups/.neofetch.bak
+}
+
 function pkg_check_and_install {
-# Determine which package manage is being used and
-# install necessary packages
+    # Determine which package manage is being used and
+    # install necessary packages
 if [[ ! -z $APT_CMD ]]; then
     apt update && apt full-upgrade -y
     apt install $APT_PKG
@@ -25,3 +38,4 @@ fi
 }
 
 pkg_check_and_install
+backup_dotfiles
