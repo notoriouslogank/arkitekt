@@ -16,8 +16,22 @@ git clone https://github.com/notoriouslogank/arkitekt.git
 ```bash
 cd src
 
-sudo arkitekt.sh
+sudo bash arkitekt.sh
 ```
+
+### Functions
+
+#### pkg_check_and_install
+
+Will attempt to first determine the package manager for the current system, then attempts to pull and install packages in manifest.sh.
+
+#### backup_dotfiles
+
+Attempt to created a file.bak copy of each relevant configuration file (whether or not they be true 'dotfiles'); save each .bak into backups directory.
+
+#### make_dotfiles
+
+Create each new configuration file from provided .txt templates.
 
 ## Contributing
 
