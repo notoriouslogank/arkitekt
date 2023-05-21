@@ -37,5 +37,24 @@ function pkg_check_and_install {
     fi
 }
 
+function make_banner {
+
+}
+
+function make_dotfiles {
+    # neofetch
+    cp neofetch.txt ~/.config/neofetch/config.conf
+    # ssh_banner
+    make_banner
+    # bashrc
+    cp bashrc.txt ~/.bashrc
+    # TODO: Make sure we have zsh, and perhaps even oh-my-zsh if we can automate it
+    # zshrc
+    cp zshrc.txt ~/.zshrc
+    # motd
+
+}
+
 pkg_check_and_install
 backup_dotfiles
+make_dotfiles
