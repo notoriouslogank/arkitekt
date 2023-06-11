@@ -38,7 +38,7 @@ function pkg_check_and_install {
 }
 
 function make_banner {
-
+    echo $HOST | figlet -f slant > ssh_banner.txt
 }
 
 function make_dotfiles {
@@ -56,5 +56,6 @@ function make_dotfiles {
 }
 
 pkg_check_and_install
+make_banner
 backup_dotfiles
 make_dotfiles
