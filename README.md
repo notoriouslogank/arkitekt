@@ -25,6 +25,10 @@ sudo bash arkitekt.sh
 ```
 Script will run from there without user input.
 
+### How Does It Work?
+
+
+
 ### Functions
 
 #### pkg_check_and_install

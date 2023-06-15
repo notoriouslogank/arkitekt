@@ -4,6 +4,36 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.0] - 2023-06-14
+
+### Added
+
+- make_motd function
+- make_neofetch function
+
+### Changed
+
+- Creating message of the day no longer done through separate .txt file
+- Creating neofetch configuration no longer done through separate .txt file
+
+### Deprecated
+
+- neofetch.txt, ssh_banner.txt, motd
+
+## [0.3.0] - 2023-06-10
+
+### Added
+
+- The following packages are now installed by default: zsh, figlet
+
+### Fixed
+
+- make_banner function actually functions
+
+### Changed
+
+- motd now contains a message
+
 ## [0.2.1] - 2023-05-20
 
 ### Fixed
