@@ -1,25 +1,29 @@
 #!/bin/bash
 
-# Get relevant application lists
+#TODO: Prompt the user for this
+BAK_DIR=/home/logank/repos/arkitekt/src/backups
+# Get list of packages to install:
 source config/manifest.sh
 
+# Check which package manager we're using
 YUM_CMD=$(which yum)
 APT_CMD=$(which apt)
 PACMAN_CMD=$(which pacman)
 
 function backup_dotfiles {
-    # Create backups of all dotfiles to be edited
-    
-    # TODO: Change these cp to mv
-    # TODO: Check whether any of these fail (eg neofetch) due to the program not being installed
-    # TODO: If any failed due to above, re-run the backups after pkg_check_and_install
-    cp /etc/motd /src/backups/motd.bak
-    cp /etc/ssh/banner /src/backups/banner.bak
-    cp /etc/ssh/ssh_config /src/backups/ssh_config.bak
-    cp /etc/ssh/sshd_config /src/backups/sshd_config.bak
-    cp ~/.zshrc /src/backups/.zshrc.bak
-    cp ~/.bashrc /src/backups/.bashrc.bak
-    cp ~/.config/neofetch /src/backups/.neofetch.bak
+    echo "Creating backups..."
+    sudo cp /etc/ssh/ssh_config $BAK_DIR/ssh_config.bak
+    echo "Backed up " + $BAK_DIR/ssh_config
+    sudo cp /etc/ssh/sshd_config $BAK_DIR/sshd_config.bak
+    echo "Backed up " + $BAK_DIR/sshd_config
+    sudo cp /etc/motd $BAK_DIR/motd.bak
+    echo "Backed up " + $BAK_DIR/motd
+    sudo cp $HOME/.config/neofetch/config.conf $BAK_DIR/config.conf.bak
+    echo "Backed up " + $BAK_DIR/.config.conf
+    sudo cp $HOME/.bashrc $BAK_DIR/bashrc.bak
+    echo "Backed up " + $BAK_DIR/.bashrc
+    sudo cp $HOME/.zshrc $BAK_DIR/zshrc.bak
+    echo "Backed up " + $BAK_DIR/.zshrc
 }
 
 function pkg_check_and_install {
@@ -40,108 +44,103 @@ function pkg_check_and_install {
 }
 
 function make_banner {
-    echo $HOST | figlet -f slant > ssh_banner.txt
+    echo $USER | figlet -f slant > ssh_banner
 }
 
 function make_motd {
     cat << EOF > motd
-    #!/bin/bash
-    echo "Through me you pass into the city of woe:"
-    echo "Through me you pass into eternal pain:"
-    echo "Through me amoung the people lost for aye."
-    echo "Justice the founder of my fabric mov'd:"
-    echo "To rear me was the task of power divine,"
-    echo "Supremest wisdom, and primeval love."
-    echo "Before me things create were none, save things"
-    echo "Eternal, and eternal I endure."
-    echo "All hope abandon ye who enter here."
+    Through me you pass into the city of woe:
+    Through me you pass into eternal pain:
+    Through me amoung the people lost for aye.
+    Justice the founder of my fabric mov'd:
+    To rear me was the task of power divine,
+    Supremest wisdom, and primeval love.
+    Before me things create were none, save things
+    Eternal, and eternal I endure.
+    All hope abandon ye who enter here.
 EOF
 }
 
 function make_neofetch {
     cat << EOF > neofetch
-    echo '    print_info() {'
-    echo '        info title'
-    echo '        info local_ip'
-    echo '        info uptime'
-    echo '        info underline'
-    echo ''
-    echo '        info "os" distro'
-    echo '        info "de" de'
-    echo '        info "wm" wm'
-    echo '        info "wm theme" wm_theme'
-    echo '        info "terminal" term'
-    echo '        info "shell" shell'
-    echo '        info "font" term_font'
-    echo '        info underline'
-    echo ''
-    echo '        info "cpu" cpu'
-    echo '        info "cpu" cpu_usage'
-    echo '        info "gpu" gpu'
-    echo '        info "aforementioned driver" gpu_driver'
-    echo '        info "disk" disk'
-    echo '        info "ram" memory'
-    echo '        info "resolution" resolution'
-    echo '        info underline'
-    echo ''
-    echo '        info "public ip" public_ip'
-    echo '    }'
-    echo ''
-    echo '    title_fqdn="off"'
-    echo '    uptime_shorthand="off"'
-    echo '    public_ip_host="http://ident.me"'
-    echo '    public_ip_timeout=2'
-    echo '    disk_show=('/')'
-    echo '    disk_subtitle="dir"'
-    echo '    disk_percent="on"'
-    echo '    music_player="auto"'
-    echo '    song_format='%artist% - %album% - %title%''
-    echo '    song_shorthand="off"'
-    echo '    mpc_args=()'
-    echo ''
-    echo '    # TEXT'
-    echo '    colors=(4 6 4 8 4 6)'
-    echo '    bold="off"'
-    echo '    underline_enabled="on"'
-    echo '    underline_char="+"'
-    echo '    separator="+"'
-    echo ''
-    echo '    block_range=(0 9)'
-    echo '    color_blocks="off"'
-    echo '    block_width=3'
-    echo '    block_height=1'
-    echo '    col_offset="auto"'
-    echo ''
-    echo '    bar_char_elapsed="+"'
-    echo '    bar_char_total="-"'
-    echo '    bar_border="on"'
-    echo '    bar_length=10'
-    echo '    bar_color_elapsed="4"'
-    echo '    bar_color_total="4"'
-    echo ''
-    echo '    # INFO'
-    echo '    cpu_display="barinfo"'
-    echo '    memory_display="barinfo"'
-    echo '    battery_display="off"'
-    echo '    disk_display="barinfo"'
-    echo ''
-    echo '    # IMAGE'
-    echo '    image_backend="ascii"'
-    echo '    image_source="ascii"'
-    echo '    ascii_distro="auto"'
-    echo '    ascii_colors=(4 8)'
-    echo '    ascii_bold="on"'
-    echo '    image_loop="off"'
-    echo '    crop_mode="normal"'
-    echo '    crop_offset="center"'
-    echo '    image_size="35%"'
-    echo '    gap=2'
-    echo '    yoffset=0'
-    echo '    xoffset=0'
-    echo '    background_color='
-    echo '    '
-    echo '    # STDOUT'
-    echo '    stdout="off"'
+print_info() {
+        info title
+        info local_ip
+        info uptime
+        info underline
+
+        info "os" distro
+        info "de" de
+        info "wm" wm
+        info "wm theme" wm_theme
+        info "terminal" term
+        info "shell" shell
+        info "font" term_font
+        info underline
+        info "cpu" cpu
+        info "cpu" cpu_usage
+        info "gpu" gpu
+        info "aforementioned driver" gpu_driver
+        info "disk" disk
+        info "ram" memory
+        info "resolution" resolution
+        info underline
+        info "public ip" public_ip
+    }
+
+title_fqdn="off"
+uptme_shorthand="off"
+public_ip_host="http://ident.me"
+public_ip_timeout=2
+disk_show=('/')
+disk_subtitle="dir"
+disk_percent="on"
+music_player="auto"
+song_format='%artist% - %album% - %title%'
+song_shorthand="off"
+mpc_args=()
+    
+# TEXT
+colors=(4 6 4 8 4 6)
+bold="off"
+underline_enabled="on"
+underline_char="+"
+separator="+"
+block_range=(0 9)
+color_blocks="off"
+block_width=3
+block_height=1
+col_offset="auto"
+bar_char_elapsed="+"
+bar_char_total="-"
+bar_border="on"
+bar_length=10
+bar_color_elapsed="4"
+bar_color_total="4"
+
+ # INFO
+cpu_display="barinfo"
+memory_display="barinfo"
+battery_display="off"
+disk_display="barinfo"
+    
+# IMAGE
+image_backend="ascii"
+image_source="ascii"
+ascii_distro="auto"
+ascii_colors=(4 8)
+ascii_bold="on"
+image_loop="off"
+crop_mode="normal"
+crop_offset="center"
+image_size="35%"
+gap=2
+yoffset=0
+xoffset=0
+background_color=
+
+# STDOUT
+stdout="off"
 EOF
 }
 
@@ -149,17 +148,11 @@ function make_dotfiles {
     make_motd
     make_neofetch
     make_banner
-    # bashrc
-    cp bashrc.txt ~/.bashrc
+    # cp bashrc.txt ~/.bashrc
+    # cp zshrc.txt ~/.zshrc
     # TODO: Make sure we have zsh, and perhaps even oh-my-zsh if we can automate it
-    # zshrc
-    cp zshrc.txt ~/.zshrc
-    # motd
-
 }
 
 backup_dotfiles
-pkg_check_and_install
-make_banner
-make_motd
+#pkg_check_and_install
 make_dotfiles
