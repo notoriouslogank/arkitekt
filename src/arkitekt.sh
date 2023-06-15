@@ -11,6 +11,8 @@ function backup_dotfiles {
     # Create backups of all dotfiles to be edited
     
     # TODO: Change these cp to mv
+    # TODO: Check whether any of these fail (eg neofetch) due to the program not being installed
+    # TODO: If any failed due to above, re-run the backups after pkg_check_and_install
     cp /etc/motd /src/backups/motd.bak
     cp /etc/ssh/banner /src/backups/banner.bak
     cp /etc/ssh/ssh_config /src/backups/ssh_config.bak
@@ -55,7 +57,7 @@ function make_dotfiles {
 
 }
 
+backup_dotfiles
 pkg_check_and_install
 make_banner
-backup_dotfiles
 make_dotfiles
