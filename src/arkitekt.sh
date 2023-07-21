@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #TODO: Prompt the user for this
-BAK_DIR=/home/logank/repos/arkitekt/src/backups
+BAK_DIR=/home/$USER/
 # Get list of packages to install:
 source config/manifest.sh
 
@@ -153,6 +153,6 @@ function make_dotfiles {
     # TODO: Make sure we have zsh, and perhaps even oh-my-zsh if we can automate it
 }
 
-backup_dotfiles
+#backup_dotfiles
 #pkg_check_and_install
 make_dotfiles
